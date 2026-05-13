@@ -64,3 +64,10 @@ and other factors.
 | gcd_naive               | Very naive recursive implementation   | 66.11 ns | ± 0.83    |
 | gcd_nonnaive_extended_2 | Extended optimized Stein's GCD        | 72.58 ns | ± 5.40    |
 | gcd_nonnaive_extended   | Extended optimized Stein's GCD        | 75.18 ns | ± 6.26    |
+
+## Inquisitive Spirit Never Gives Up
+Because inquisitive spirit never gives up, one more iteration of optimizations to `gcd_nonnaive_extended` earns intended stabilization of branch prediction.
+
+![img](./stabilization.png)
+
+Even though other hand halving does redundant oddity check at start because evenness cannot be assured in first iteration, this implementation is usually seen to perform at par with Euclidean algorithms, even with slightly better times. However it is still volatile and performance can degrade back to its _'unstabilized'_ version.
