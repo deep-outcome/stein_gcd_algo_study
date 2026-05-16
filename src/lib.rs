@@ -435,7 +435,7 @@ mod tests_of_units {
     }
 
     #[test]
-    fn coprime_primes_test() {
+    fn coprime_primes() {
         // both prime numbers
         let num_1 = 1_299_709;
         let num_2 = 56_999;
@@ -452,7 +452,7 @@ mod tests_of_units {
     }
 
     #[test]
-    fn coprime_odd_test() {
+    fn coprime_odd() {
         let num_1 = 2_559_031_471u64; // 150531263ᵖ ⋅17ᵖ
         let num_2 = 1_956_912_061; // 150531697ᵖ ⋅13ᵖ
         let proof = 1;
@@ -467,7 +467,7 @@ mod tests_of_units {
     }
 
     #[test]
-    fn coprime_mixed_a_test() {
+    fn coprime_mixed_a() {
         let num_1 = 52_685_751_650_u64; // 150530719ᵖ ⋅350ᶜ
         let num_2 = 52_535_230_703_u64; // 150530747ᵖ ⋅349ᵖ
         let proof = 1;
@@ -482,7 +482,7 @@ mod tests_of_units {
     }
 
     #[test]
-    fn coprime_mixed_b_test() {
+    fn coprime_mixed_b() {
         let num_1 = 19_209_934_347_u64; // 56666473ᵖ ⋅113ᵖ ⋅3ᵖ
         let num_2 = 10_993_312_058_u64; // 56666557ᵖ ⋅2ᵖ ⋅97ᵖ
         let proof = 1;
@@ -497,7 +497,7 @@ mod tests_of_units {
     }
 
     #[test]
-    fn not_coprime_mixed_a_test() {
+    fn not_coprime_mixed_a() {
         let num_1 = 37_683_426; // 570961ᵖ ⋅66ᶜ
         let num_2 = 18_804_423; // 569831ᵖ ⋅33ᶜ
         let proof = 33;
@@ -512,7 +512,7 @@ mod tests_of_units {
     }
 
     #[test]
-    fn not_coprime_mixed_b_test() {
+    fn not_coprime_mixed_b() {
         let num_1 = 1_822_623; // 5021ᵖ ⋅33ᶜ ⋅11ᵖ
         let num_2 = 1_650_990; // 5003ᵖ ⋅10ᶜ ⋅33ᶜ
         let proof = 33;
@@ -527,7 +527,7 @@ mod tests_of_units {
     }
 
     #[test]
-    fn not_coprime_extra_test() {
+    fn not_coprime_extra() {
         let num_1 = 55_286_231; // 5021ᵖ ⋅77ᶜ ⋅11ᵖ ⋅13ᵖ
         let num_2 = 7_704_620; // 5003ᵖ ⋅10ᶜ ⋅154ᶜ
         let proof = 77;
@@ -565,7 +565,7 @@ mod tests_of_units {
     }
 
     #[test]
-    fn not_coprime_odd_a_test() {
+    fn not_coprime_odd_a() {
         let num_1 = 3_150_055_839u64; // 150002659ᵖ ⋅7ᵖ ⋅3ᵖ
         let num_2 = 76_604_397; // 1502047ᵖ ⋅17ᵖ ⋅3ᵖ
         let proof = 3;
@@ -580,7 +580,7 @@ mod tests_of_units {
     }
 
     #[test]
-    fn not_coprime_odd_b_test() {
+    fn not_coprime_odd_b() {
         let num_1 = 56_991; // 157ᵖ ⋅33ᶜ ⋅11ᵖ
         let num_2 = 49_599; // 167ᵖ ⋅9ᶜ ⋅33ᶜ
         let proof = 33;
@@ -595,7 +595,7 @@ mod tests_of_units {
     }
 
     #[test]
-    fn not_coprime_even_a_test() {
+    fn not_coprime_even_a() {
         let num_1 = 549_755_813_888u64; // 2³⁹
         let num_2 = 300_005_318; // 150002659ᵖ ⋅2ᵖ
         let proof = 2;
@@ -610,7 +610,7 @@ mod tests_of_units {
     }
 
     #[test]
-    fn not_coprime_even_b_test() {
+    fn not_coprime_even_b() {
         let num_1 = 549_755_813_888u64; // 2³⁹
         let num_2 = 33_554_432; // 2²⁵        
 
@@ -678,7 +678,7 @@ mod tests_of_units {
         }
 
         #[test]
-        fn coprime_primes_test() {
+        fn coprime_primes() {
             // both prime numbers
             let num_1 = 1_299_709;
             let num_2 = 56_999;
@@ -689,7 +689,7 @@ mod tests_of_units {
         }
 
         #[test]
-        fn coprime_odd_test() {
+        fn coprime_odd() {
             let num_1 = 2_559_031_471i64; // 150531263ᵖ ⋅17ᵖ
             let num_2 = 1_956_912_061; // 150531697ᵖ ⋅13ᵖ
 
@@ -698,7 +698,7 @@ mod tests_of_units {
         }
 
         #[test]
-        fn coprime_mixed_a_test() {
+        fn coprime_mixed_a() {
             let num_1 = 52_685_751_650_i64; // 150530719ᵖ ⋅350ᶜ
             let num_2 = 52_535_230_703_i64; // 150530747ᵖ ⋅349ᵖ
 
@@ -707,7 +707,7 @@ mod tests_of_units {
         }
 
         #[test]
-        fn coprime_mixed_b_test() {
+        fn coprime_mixed_b() {
             let num_1 = 19_209_934_347_i64; // 56666473ᵖ ⋅113ᵖ ⋅3ᵖ
             let num_2 = 10_993_312_058_i64; // 56666557ᵖ ⋅2ᵖ ⋅97ᵖ
 
@@ -716,7 +716,7 @@ mod tests_of_units {
         }
 
         #[test]
-        fn not_coprime_mixed_a_test() {
+        fn not_coprime_mixed_a() {
             let num_1 = 37_683_426; // 570961ᵖ ⋅66ᶜ
             let num_2 = 18_804_423; // 569831ᵖ ⋅33ᶜ
 
@@ -725,7 +725,7 @@ mod tests_of_units {
         }
 
         #[test]
-        fn not_coprime_mixed_b_test() {
+        fn not_coprime_mixed_b() {
             let num_1 = 1_822_623; // 5021ᵖ ⋅33ᶜ ⋅11ᵖ
             let num_2 = 1_650_990; // 5003ᵖ ⋅10ᶜ ⋅33ᶜ
 
@@ -734,7 +734,7 @@ mod tests_of_units {
         }
 
         #[test]
-        fn not_coprime_extra_test() {
+        fn not_coprime_extra() {
             let num_1 = 55_286_231; // 5021ᵖ ⋅77ᶜ ⋅11ᵖ ⋅13ᵖ
             let num_2 = 7_704_620; // 5003ᵖ ⋅10ᶜ ⋅154ᶜ
 
@@ -758,7 +758,7 @@ mod tests_of_units {
         }
 
         #[test]
-        fn not_coprime_odd_a_test() {
+        fn not_coprime_odd_a() {
             let num_1 = 3_150_055_839i64; // 150002659ᵖ ⋅7ᵖ ⋅3ᵖ
             let num_2 = 76_604_397; // 1502047ᵖ ⋅17ᵖ ⋅3ᵖ
 
@@ -767,7 +767,7 @@ mod tests_of_units {
         }
 
         #[test]
-        fn not_coprime_odd_b_test() {
+        fn not_coprime_odd_b() {
             let num_1 = 56_991; // 157ᵖ ⋅33ᶜ ⋅11ᵖ
             let num_2 = 49_599; // 167ᵖ ⋅9ᶜ ⋅33ᶜ
 
@@ -776,7 +776,7 @@ mod tests_of_units {
         }
 
         #[test]
-        fn not_coprime_even_a_test() {
+        fn not_coprime_even_a() {
             let num_1 = 549_755_813_888i64; // 2³⁹
             let num_2 = 300_005_318; // 150002659ᵖ ⋅2ᵖ
 
@@ -785,7 +785,7 @@ mod tests_of_units {
         }
 
         #[test]
-        fn not_coprime_even_b_test() {
+        fn not_coprime_even_b() {
             let num_1 = 549_755_813_888i64; // 2³⁹
             let num_2 = 33_554_432; // 2²⁵            
 
@@ -794,4 +794,8 @@ mod tests_of_units {
     }
 }
 
+// rustup default nightly-x86_64-unknown-linux-gnu
+// rustup default stable-x86_64-unknown-linux-gnu
+//
+// cargo fmt && cargo bench --test bench
 // cargo fmt && cargo test --release
