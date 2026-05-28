@@ -3,8 +3,8 @@
 //! Algorithms are based on these 4 identities:
 //! 1. gcd(u,0) =u
 //! 2. gcd(2u,2v) =2 ⋅gcd(u,v)
-//! 3. gcd(u,2v) =gcd(u,v), u ∤2
-//! 4. gcd(u,v) =gcd(u,v-u), u ∤2, v ∤2, u ≤v
+//! 3. gcd(u,2v) =gcd(u,v), 2 ∤u
+//! 4. gcd(u,v) =gcd(u,v-u), 2 ∤u, 2 ∤v, u ≤v
 //!
 //! Note: GCD is commutative, gcd(u,v) =gcd(v,u).
 //!
