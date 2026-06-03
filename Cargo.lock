@@ -4,4 +4,4 @@ version = 4
 
 [[package]]
 name = "stein_gcd_algo_study"
-version = "0.1.0"
+version = "1.0.0"
