@@ -71,7 +71,7 @@ Even though other hand halving does redundant oddity check at start because even
 
 ## Going Forth
 
-Having `gcd_nonnaive_extended` _somewhat_ stabilized is not good enough as stabilization can be further fixed by avoiding redundant check which was aformetioned by halving potententially initially even other hand as in `gcd_nonnaive_extended_b`. Let do jump here and use `fat` [Link Time Optimizations](https://doc.rust-lang.org/cargo/reference/profiles.html#lto), `cargo bench --test bench --profile bench`, see [Cargo.toml](./Cargo.toml).
+Having `gcd_nonnaive_extended` _somewhat_ stabilized is not good enough as stabilization can be further fixed by avoiding redundant check, which was aforementioned, by halving potentially initially even other hand as in `gcd_nonnaive_extended_b`. Let do jump here and use `fat` [Link Time Optimizations](https://doc.rust-lang.org/cargo/reference/profiles.html#lto), `cargo bench --test bench --profile bench`, see [Cargo.toml](./Cargo.toml).
  
 |         Method          |      Mean      | Deviation |
 |-------------------------|----------------|-----------|
@@ -86,4 +86,4 @@ Having `gcd_nonnaive_extended` _somewhat_ stabilized is not good enough as stabi
 | gcd_nonnaive_extended_c | 32.27 ns/iter  | ± 1.78    |
 | gcd_nonnaive_extended   | 38.16 ns/iter  | ± 5.51    |
 
-On the spur of the moment, methods of interested `gcd_nonnaive_extended*` all perform really much better than Euclidean GCDs. It can be seen that compilier obviously cannot do any optimizations as both are running at same times as before.
+On spur of moment, methods of interest, `gcd_nonnaive_extended*`, all perform really much better than Euclidean GCDs. It can be seen also that compiler could not optimize them as both are running at same times as before.
