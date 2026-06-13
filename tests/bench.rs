@@ -2,10 +2,11 @@
 
 use stein_gcd_algo_study::{
     gcd_disingenuous, gcd_disingenuous_2, gcd_naive, gcd_naive_2, gcd_nonnaive_extended,
-    gcd_nonnaive_extended_2,
+    gcd_nonnaive_extended_2, gcd_nonnaive_extended_b, gcd_nonnaive_extended_c,
 };
 
 extern crate test;
+use std::hint::black_box;
 use test::Bencher;
 
 #[bench]
@@ -13,7 +14,7 @@ fn gcd_naive_test(b: &mut Bencher) {
     let num_1 = 2_559_031_471u64; // 150531263ᵖ ⋅17ᵖ
     let num_2 = 1_956_912_061; // 150531697ᵖ ⋅13ᵖ    
 
-    b.iter(|| _ = gcd_naive(num_1, num_2));
+    b.iter(|| _ = gcd_naive(black_box(num_1), black_box(num_2)));
 }
 
 #[bench]
@@ -21,7 +22,7 @@ fn gcd_naive_2_test(b: &mut Bencher) {
     let num_1 = 2_559_031_471u64; // 150531263ᵖ ⋅17ᵖ
     let num_2 = 1_956_912_061; // 150531697ᵖ ⋅13ᵖ
 
-    b.iter(|| _ = gcd_naive_2(num_1, num_2));
+    b.iter(|| _ = gcd_naive_2(black_box(num_1), black_box(num_2)));
 }
 
 #[bench]
@@ -54,6 +55,22 @@ fn gcd_nonnaive_extended_test(b: &mut Bencher) {
     let num_2 = 1_956_912_061; // 150531697ᵖ ⋅13ᵖ
 
     b.iter(|| _ = gcd_nonnaive_extended(num_1, num_2));
+}
+
+#[bench]
+fn gcd_nonnaive_extended_b_test(b: &mut Bencher) {
+    let num_1 = 2_559_031_471i64; // 150531263ᵖ ⋅17ᵖ
+    let num_2 = 1_956_912_061; // 150531697ᵖ ⋅13ᵖ
+
+    b.iter(|| _ = gcd_nonnaive_extended_b(num_1, num_2));
+}
+
+#[bench]
+fn gcd_nonnaive_extended_c_test(b: &mut Bencher) {
+    let num_1 = 2_559_031_471i64; // 150531263ᵖ ⋅17ᵖ
+    let num_2 = 1_956_912_061; // 150531697ᵖ ⋅13ᵖ
+
+    b.iter(|| _ = gcd_nonnaive_extended_c(num_1, num_2));
 }
 
 #[bench]

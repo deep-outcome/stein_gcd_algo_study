@@ -259,9 +259,9 @@ pub fn gcd_nonnaive_extended(mut l_hand: i64, mut r_hand: i64) -> ExtRes {
                 if lx & 1 == 1 || ly & 1 == 1 {
                     lx -= r;
                     ly += l;
-            }
+                }
 
-            // lx ·l +ly ·r =l_hand
+                // lx ·l +ly ·r =l_hand
                 lx >>= 1;
                 ly >>= 1;
                 l_hand >>= 1;
@@ -280,10 +280,10 @@ pub fn gcd_nonnaive_extended(mut l_hand: i64, mut r_hand: i64) -> ExtRes {
                 if rx & 1 == 1 || ry & 1 == 1 {
                     rx -= r;
                     ry += l;
-            }
+                }
 
-            // rx ·l +ry ·r =r_hand
-            rx >>= 1;
+                // rx ·l +ry ·r =r_hand
+                rx >>= 1;
                 ry >>= 1;
                 r_hand >>= 1;
             }
@@ -320,6 +320,252 @@ pub fn gcd_nonnaive_extended(mut l_hand: i64, mut r_hand: i64) -> ExtRes {
             rx -= lx;
             ry -= ly;
         }
+    }
+}
+
+/// optimized extended gcd algorithm
+pub fn gcd_nonnaive_extended_b(mut l_hand: i64, mut r_hand: i64) -> ExtRes {
+    // ident #1
+    if l_hand == 0 {
+        return ExtRes(r_hand, 0, 1);
+    }
+
+    // ident #1
+    if r_hand == 0 {
+        return ExtRes(l_hand, 1, 0);
+    }
+
+    // ident #2 and ident #3
+    // gcd(2ⁱ ⋅u,2ʲ ⋅v) = 2ᵏ ⋅gcd(u,v), k = min(i, j)
+    let lhand_pow = l_hand.trailing_zeros();
+    let rhand_pow = r_hand.trailing_zeros();
+
+    let mpler = lhand_pow.min(rhand_pow);
+    l_hand >>= mpler;
+    r_hand >>= mpler;
+
+    // lx ·l +ly ·r =l_hand
+    // (lx −r) ·l +(ly +l) ·r =lx ·l −l ·r +ly ·r + l ·r = lx ·l + ly ·r
+    let l = l_hand as i64;
+    // rx ·l +ry ·r =r_hand
+    // (rx −r) ·l +(ry +l) ·r =rx ·l −l ·r +ry ·r + l ·r = rx ·l + ry ·r
+    let r = r_hand as i64;
+
+    let mut lx: i64 = 1;
+    let mut ly: i64 = 0;
+
+    let mut rx: i64 = 0;
+    let mut ry: i64 = 1;
+
+    if l_hand & 1 == 0 {
+        // #ident 3
+        loop {
+            if lx & 1 == 1 || ly & 1 == 1 {
+                lx -= r;
+                ly += l;
+            }
+
+            // lx ·l +ly ·r =l_hand
+            lx >>= 1;
+            ly >>= 1;
+            l_hand >>= 1;
+
+            if l_hand & 1 == 1 {
+                break;
+            }
+        }
+    } else if r_hand & 1 == 0 {
+        // #ident 3
+        loop {
+            if rx & 1 == 1 || ry & 1 == 1 {
+                rx -= r;
+                ry += l;
+            }
+
+            // rx ·l +ry ·r =r_hand
+            rx >>= 1;
+            ry >>= 1;
+            r_hand >>= 1;
+
+            if r_hand & 1 == 1 {
+                break;
+            }
+        }
+    }
+
+    loop {
+        if l_hand > r_hand {
+            // ident #4
+            l_hand -= r_hand;
+            // l_hand non-odd here
+
+            // ident #1
+            if l_hand == 0 {
+                // ident #2
+                return ExtRes(r_hand << mpler, rx, ry);
+            }
+
+            // (lx ·l + ly ·r) −(rx ·l +ry ·r) = l_hand −r_hand
+            // (lx -rx) ·l +(ly -ry) ·r − = l_hand −r_hand
+            lx -= rx;
+            ly -= ry;
+        } else {
+            // ident #4
+            r_hand -= l_hand;
+            // r_hand non-odd here
+
+            // ident #1
+            if r_hand == 0 {
+                // ident #2
+                return ExtRes(l_hand << mpler, lx, ly);
+            }
+
+            // (rx ·l +ry ·r) -(lx ·l +ly ·r) = r_hand −l_hand
+            // (rx -lx) ·l +(ry -ly) ·r − = r_hand −l_hand
+            rx -= lx;
+            ry -= ly;
+        }
+
+        if l_hand & 1 == 0 {
+            // #ident 3
+            loop {
+                if lx & 1 == 1 || ly & 1 == 1 {
+                    lx -= r;
+                    ly += l;
+                }
+
+                // lx ·l +ly ·r =l_hand
+                lx >>= 1;
+                ly >>= 1;
+                l_hand >>= 1;
+
+                if l_hand & 1 == 1 {
+                    break;
+                }
+            }
+        } else {
+            // #ident 3
+            loop {
+                if rx & 1 == 1 || ry & 1 == 1 {
+                    rx -= r;
+                    ry += l;
+                }
+
+                // rx ·l +ry ·r =r_hand
+                rx >>= 1;
+                ry >>= 1;
+                r_hand >>= 1;
+
+                if r_hand & 1 == 1 {
+                    break;
+                }
+            }
+        }
+    }
+}
+
+/// optimized extended gcd algorithm
+pub fn gcd_nonnaive_extended_c(mut l_hand: i64, mut r_hand: i64) -> ExtRes {
+    // ident #1
+    if l_hand == 0 {
+        return ExtRes(r_hand, 0, 1);
+    }
+
+    // ident #1
+    if r_hand == 0 {
+        return ExtRes(l_hand, 1, 0);
+    }
+
+    // ident #2 and ident #3
+    // gcd(2ⁱ ⋅u,2ʲ ⋅v) = 2ᵏ ⋅gcd(u,v), k = min(i, j)
+    let lhand_pow = l_hand.trailing_zeros();
+    let rhand_pow = r_hand.trailing_zeros();
+
+    let mpler = lhand_pow.min(rhand_pow);
+    l_hand >>= mpler;
+    r_hand >>= mpler;
+
+    // lx ·l +ly ·r =l_hand
+    // (lx −r) ·l +(ly +l) ·r =lx ·l −l ·r +ly ·r + l ·r = lx ·l + ly ·r
+    let l = l_hand as i64;
+    // rx ·l +ry ·r =r_hand
+    // (rx −r) ·l +(ry +l) ·r =rx ·l −l ·r +ry ·r + l ·r = rx ·l + ry ·r
+    let r = r_hand as i64;
+
+    let mut lx: i64 = 1;
+    let mut ly: i64 = 0;
+
+    let mut rx: i64 = 0;
+    let mut ry: i64 = 1;
+
+    if l_hand & 1 == 0 {
+        // #ident 3
+        (l_hand, lx, ly) = halve(l_hand, lx, ly, r, l);
+    } else if r_hand & 1 == 0 {
+        // #ident 3
+        (r_hand, rx, ry) = halve(r_hand, rx, ry, r, l);
+    }
+
+    loop {
+        if l_hand > r_hand {
+            // ident #4
+            l_hand -= r_hand;
+            // l_hand non-odd here
+
+            // ident #1
+            if l_hand == 0 {
+                // ident #2
+                return ExtRes(r_hand << mpler, rx, ry);
+            }
+
+            // (lx ·l + ly ·r) −(rx ·l +ry ·r) = l_hand −r_hand
+            // (lx -rx) ·l +(ly -ry) ·r − = l_hand −r_hand
+            lx -= rx;
+            ly -= ry;
+        } else {
+            // ident #4
+            r_hand -= l_hand;
+            // r_hand non-odd here
+
+            // ident #1
+            if r_hand == 0 {
+                // ident #2
+                return ExtRes(l_hand << mpler, lx, ly);
+            }
+
+            // (rx ·l +ry ·r) -(lx ·l +ly ·r) = r_hand −l_hand
+            // (rx -lx) ·l +(ry -ly) ·r − = r_hand −l_hand
+            rx -= lx;
+            ry -= ly;
+        }
+
+        if l_hand & 1 == 0 {
+            // #ident 3
+            (l_hand, lx, ly) = halve(l_hand, lx, ly, r, l);
+        } else {
+            // #ident 3
+            (r_hand, rx, ry) = halve(r_hand, rx, ry, r, l);
+        }
+    }
+
+    const fn halve(mut hand: i64, mut x: i64, mut y: i64, r: i64, l: i64) -> (i64, i64, i64) {
+        loop {
+            if x & 1 == 1 || y & 1 == 1 {
+                x -= r;
+                y += l;
+            }
+
+            // x ·l +y ·r =hand
+            x >>= 1;
+            y >>= 1;
+            hand >>= 1;
+
+            if hand & 1 == 1 {
+                break;
+            }
+        }
+
+        return (hand, x, y);
     }
 }
 
@@ -414,7 +660,9 @@ pub fn gcd_nonnaive_extended_2(mut l_hand: i64, mut r_hand: i64) -> ExtRes {
 
 #[cfg(test)]
 mod tests_of_units {
-    use super::{gcd_disingenuous, gcd_disingenuous_2, gcd_naive, gcd_naive_2};
+    use super::{
+        gcd_disingenuous, gcd_disingenuous_2, gcd_naive, gcd_naive_2, gcd_nonnaive_extended_b,
+    };
 
     #[test]
     fn both_zero() {
@@ -634,13 +882,21 @@ mod tests_of_units {
     }
 
     mod gcd_nonnaive_extended {
-        use super::super::{gcd_nonnaive_extended, gcd_nonnaive_extended_2};
+        use super::super::{
+            gcd_nonnaive_extended, gcd_nonnaive_extended_2, gcd_nonnaive_extended_b,
+            gcd_nonnaive_extended_c,
+        };
 
         #[test]
         fn both_zero() {
             // can be updated to return both coefficient zero
             let zero = 0;
-            for f in [gcd_nonnaive_extended, gcd_nonnaive_extended_2] {
+            for f in [
+                gcd_nonnaive_extended,
+                gcd_nonnaive_extended_2,
+                gcd_nonnaive_extended_b,
+                gcd_nonnaive_extended_c,
+            ] {
                 let res = f(zero, zero);
                 assert_eq!(zero, res.0);
                 assert_eq!(0, res.1);
@@ -652,7 +908,12 @@ mod tests_of_units {
             let l_hand = 0;
             let r_hand = 15;
 
-            for f in [gcd_nonnaive_extended, gcd_nonnaive_extended_2] {
+            for f in [
+                gcd_nonnaive_extended,
+                gcd_nonnaive_extended_2,
+                gcd_nonnaive_extended_b,
+                gcd_nonnaive_extended_c,
+            ] {
                 let res = f(l_hand, r_hand);
                 assert_eq!(r_hand, res.0);
                 assert_eq!(0, res.1);
@@ -665,7 +926,12 @@ mod tests_of_units {
             let l_hand = 15;
             let r_hand = 0;
 
-            for f in [gcd_nonnaive_extended, gcd_nonnaive_extended_2] {
+            for f in [
+                gcd_nonnaive_extended,
+                gcd_nonnaive_extended_2,
+                gcd_nonnaive_extended_b,
+                gcd_nonnaive_extended_c,
+            ] {
                 let res = f(l_hand, r_hand);
                 assert_eq!(l_hand, res.0);
                 assert_eq!(1, res.1);
@@ -675,7 +941,12 @@ mod tests_of_units {
 
         fn run_test(num_1: i64, num_2: i64, proof: i64) {
             for (l_hand, r_hand) in [(num_1, num_2), (num_2, num_1)] {
-                for f in [gcd_nonnaive_extended, gcd_nonnaive_extended_2] {
+                for f in [
+                    gcd_nonnaive_extended,
+                    gcd_nonnaive_extended_2,
+                    gcd_nonnaive_extended_b,
+                    gcd_nonnaive_extended_c,
+                ] {
                     let res = f(l_hand, r_hand);
                     assert_eq!(proof, res.0);
 
@@ -808,4 +1079,4 @@ mod tests_of_units {
 // rustup default stable-x86_64-unknown-linux-gnu
 //
 // cargo fmt && cargo bench --test bench
-// cargo fmt && cargo test --release
+// cargo fmt && cargo test

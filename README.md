@@ -23,7 +23,8 @@ Configuration:
 <ul>
 <li>Operating System: openSUSE Leap 16.0</li>
 <li>Kernel Version:  6.12.0-160000.33-default (64-bit)</li>
-<li>Processors: 16 × AMD Ryzen 7 3800X 8-Core Processor</li>
+<li>Processor: 16 × AMD Ryzen 7 3800X 8-Core Processor</li>
+<li>RAM: DDR4 2133 MT/s</li>
 </ul>
 </small>
 
@@ -67,3 +68,22 @@ Because inquisitive spirit never gives up, one more iteration of optimizations t
 ![img](./stabilization.png)
 
 Even though other hand halving does redundant oddity check at start because evenness cannot be assured in first iteration, this implementation is usually seen to perform at par with Euclidean algorithms, even with slightly better times. However it is still volatile and performance can degrade back to its _'unstabilized'_ version.
+
+## Going Forth
+
+Having `gcd_nonnaive_extended` _somewhat_ stabilized is not good enough as stabilization can be further fixed by avoiding redundant check which was aformetioned by halving potententially initially even other hand as in `gcd_nonnaive_extended_b`. Let do jump here and use `fat` [Link Time Optimizations](https://doc.rust-lang.org/cargo/reference/profiles.html#lto), `cargo bench --test bench --profile bench`, see [Cargo.toml](./Cargo.toml).
+ 
+|         Method          |      Mean      | Deviation |
+|-------------------------|----------------|-----------|
+| gcd_disingenuous_2      | 16.64 ns/iter  | ± 0.13    |
+| gcd_disingenuous        | 33.43 ns/iter  | ± 0.20    |
+| gcd_e                   | 54.95 ns/iter  | ± 0.38    |
+| gcd_ee                  | 54.91 ns/iter  | ± 0.62    |
+| gcd_naive_2             | 39.01 ns/iter  | ± 4.88    |
+| gcd_naive               | 55.99 ns/iter  | ± 3.99    |
+| gcd_nonnaive_extended_2 | 33.39 ns/iter  | ± 0.88    |
+| gcd_nonnaive_extended_b | 32.81 ns/iter  | ± 8.87    |
+| gcd_nonnaive_extended_c | 32.27 ns/iter  | ± 1.78    |
+| gcd_nonnaive_extended   | 38.16 ns/iter  | ± 5.51    |
+
+On the spur of the moment, methods of interested `gcd_nonnaive_extended*` all perform really much better than Euclidean GCDs. It can be seen that compilier obviously cannot do any optimizations as both are running at same times as before.
