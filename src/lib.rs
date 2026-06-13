@@ -253,30 +253,40 @@ pub fn gcd_nonnaive_extended(mut l_hand: i64, mut r_hand: i64) -> ExtRes {
     let mut ry: i64 = 1;
 
     loop {
-        // #ident 3
-        while l_hand & 1 == 0 {
-            if lx & 1 == 1 || ly & 1 == 1 {
-                lx -= r;
-                ly += l;
+        if l_hand & 1 == 0 {
+            // #ident 3
+            loop {
+                if lx & 1 == 1 || ly & 1 == 1 {
+                    lx -= r;
+                    ly += l;
             }
 
             // lx ·l +ly ·r =l_hand
-            lx >>= 1;
-            ly >>= 1;
-            l_hand >>= 1;
-        }
+                lx >>= 1;
+                ly >>= 1;
+                l_hand >>= 1;
 
-        // #ident 3
-        while r_hand & 1 == 0 {
-            if rx & 1 == 1 || ry & 1 == 1 {
-                rx -= r;
-                ry += l;
+                if l_hand & 1 == 1 {
+                    break;
+                }
+            }
+        } else {
+            // #ident 3
+            loop {
+                if r_hand & 1 == 1 {
+                    break;
+                }
+
+                if rx & 1 == 1 || ry & 1 == 1 {
+                    rx -= r;
+                    ry += l;
             }
 
             // rx ·l +ry ·r =r_hand
             rx >>= 1;
-            ry >>= 1;
-            r_hand >>= 1;
+                ry >>= 1;
+                r_hand >>= 1;
+            }
         }
 
         if l_hand > r_hand {
