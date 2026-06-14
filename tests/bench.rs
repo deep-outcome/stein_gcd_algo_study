@@ -428,5 +428,5 @@ mod tests_of_units {
 // rustup default nightly-x86_64-unknown-linux-gnu
 // rustup default stable-x86_64-unknown-linux-gnu
 //
-// cargo fmt && cargo bench --test bench
+// cargo fmt && cargo bench --test bench --profile bench
 // cargo fmt && cargo test --release
